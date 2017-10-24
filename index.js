@@ -10,9 +10,9 @@ import inert from 'inert'
 
 require('dotenv').config()
 
-//if (!process.env.TB_VERIFY && !process.env.FB_TOKEN) {
-//  throw 'Make sure you defined FB_TOKEN and FB_VERIFY in your .env file'
-//}
+if (!process.env.BASE_PATH && !process.env.PG_CON) {
+  throw 'Make sure you defined BASE_PATH and PG_CON in your .env file'
+}
 
 const server = new Hapi.Server();
 server.connection({ port: 4002, host: 'localhost', routes: { cors: true }, labels: ['api'] })
