@@ -15,6 +15,7 @@ if (!process.env.BASE_PATH && !process.env.PG_CON) {
 }
 
 const server = new Hapi.Server();
+//server.connection({ port: 4002, host: '88.161.155.93', routes: { cors: true }, labels: ['api'] })
 server.connection({ port: 4002, host: 'localhost', routes: { cors: true }, labels: ['api'] })
 
 server.register([

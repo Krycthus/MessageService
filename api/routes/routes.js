@@ -7,8 +7,22 @@ import Joi from 'joi'
 module.exports = (server) => {
 
     server.route({
-        method: 'POST',
+        method: 'GET',
         path: Paths.intern.message,
+        config: {
+            tags: ['api'],
+            validate: {
+                params: {
+                    id: Joi.number().integer().required().description('id')
+                }
+            },
+            handler: messageController.getMessage
+        }
+    })
+
+    server.route({
+        method: 'POST',
+        path: Paths.intern.postMessage,
         handler: messageController.postMessage,
         config: {
             tags: ['api'],

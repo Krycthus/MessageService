@@ -4,27 +4,28 @@ require ('dotenv').config
 
 import Paths from '../conf/paths'
 import Boom from 'boom'
+import DBController from '../controllers/DBController'
 import Fetch from 'node-fetch'
 
 exports.getMessage = (request, reply) => {
-
+    DBController.getMessage(request.params.id)
+    .then(rows => reply(rows))
 }
 
 exports.postMessage = (request, reply) => {
-    
     getReponseBot(request.payload.text)
     .then(json => {
-        const resMassage = {
-            content: json.content
+        const resMessage = {
+            content: json.message,
+            id: request.payload.id
         }
-        postOnMessenger(resMassage)
+        postOnMessenger(resMessage)
+        reply(json)
     })
-
-
 }
 
 const getReponseBot = (text) => {
-    return Fetch(Paths.extern.getMessage())
+    return Fetch(Paths.extern.getMessage(text))
     .then(res => res.json())
     .catch(err => console.log(err))
 }
